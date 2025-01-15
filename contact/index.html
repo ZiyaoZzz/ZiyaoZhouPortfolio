@@ -1,27 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="../styles.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>contact</title>
-    <h1>contact</h1>
 </head>
 <body>
     <nav>
-        <a href="../index.html">Home</a> |
-        <a href="index.html">contact</a>
-        <a href="../projects/index.html">projects</a>
-        <a href="https://github.com/ZiyaoZzz" target="_blank">GitHub</a>
-        <a href="../resume/index.html">resume</a>
-    </nav>
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="index.html" class="current">Contact</a></li>
+            <li><a href="../projects/index.html">Projects</a></li>
+            <li><a href="https://github.com/ZiyaoZzz" target="_blank">GitHub</a></li>
+            <li><a href="../resume/index.html">Resume</a></li>
+        </ul>
+    </nav>    
+    <title>contact</title>
+    <h1>contact</h1>
     <form action = "mailto:ziz075@ucsd.edu" method = "post" enctype = "text/plain">
         <label for="email">Email:</label>
         <input type="email" id="email" name="email">
         <label for="subject">Subject:</label>
         <input type="text" id="subject" name="subject">
         <label for="body">Message:</label>
-        <textarea id="body" name="body" rows = "1"></textarea>
-        <button type ="submit">Submit</button>
+        <textarea id="body" name="body" rows = "3"></textarea>
+        <button type ="submit">Send</button>
     </form>
 </body>
 </html>
