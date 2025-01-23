@@ -7,25 +7,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-    <nav>
-        <ul>
-            <li><a href="../index.html">Home</a></li>
-            <li><a href="index.html">Contact</a></li>
-            <li><a href="../projects/index.html">Projects</a></li>
-            <li><a href="https://github.com/ZiyaoZzz" target="_blank">GitHub</a></li>
-            <li><a href="../resume/index.html">Resume</a></li>
-        </ul>
-    </nav>    
+  
     <title>contact</title>
-    <h1>contact</h1>
-    <form action = "mailto:ziz075@ucsd.edu" method = "post" enctype = "text/plain">
+    <h1>Contact</h1>
+    <form id="contact-form">
         <label for="email">Email:</label>
-        <input type="email" id="email" name="email">
+        <input type="email" id="email" name="email" required>
         <label for="subject">Subject:</label>
-        <input type="text" id="subject" name="subject">
+        <input type="text" id="subject" name="subject" required>
         <label for="body">Message:</label>
-        <textarea id="body" name="body" rows = "3"></textarea>
-        <button type ="submit">Send</button>
+        <textarea id="body" name="body" rows="3" required></textarea>
+        <button type="submit">Send</button>
     </form>
+
+    <script>
+      const form = document.querySelector('#contact-form');
+      form?.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const data = new FormData(form);
+        let url = 'mailto:ziz075@ucsd.edu?';
+        for (let [name, value] of data) {
+          url += `${encodeURIComponent(name)}=${encodeURIComponent(value)}&`;
+        }
+        url = url.slice(0, -1);
+        location.href = url;
+      });
+    </script>
 </body>
 </html>
