@@ -5,6 +5,8 @@ body {
   margin-inline: auto;
   padding: 1rem;
   accent-color: var(--color-accent);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
 }
 
 html {
@@ -155,3 +157,24 @@ label.color-scheme select {
   padding: 0.25rem;
   font-size: 1rem;
 }
+
+
+/* lab 4 */
+#profile-stats dl {
+  display: grid; 
+  grid-template-columns: repeat(4, 1fr); 
+  grid-gap: 20px; 
+}
+
+#profile-stats dt {
+  grid-row: 1; 
+  font-weight: normal; 
+}
+
+#profile-stats dd {
+  grid-row: 2; 
+  font-size: 1.5rem; 
+}
+
+
+

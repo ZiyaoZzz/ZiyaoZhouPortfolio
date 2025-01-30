@@ -1,0 +1,74 @@
+[
+    {
+        "title": "The Simpsons Face Clustering and Mapping",
+        "year": "2024", 
+        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+        "description": "Developed a pipeline to cluster Simpsons character faces and map third-party images at various angles using Python."
+    },
+    {
+        "title": "Recipe Nutrition VS. Preparation Time & Steps Dataset Analysis and Prediction",
+        "year": "2024", 
+        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+        "description": "Analyzed correlations between movie budgets and revenues using Python, and developed predictive models to identify patterns."
+    },
+    {
+        "title": "California Airbnb Pricing and Potential Factors Analysis",
+        "year": "2024", 
+        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+        "description": "Utilized Python (Pandas, NumPy, Matplotlib) for data analysis and visualization, applying statistical techniques to identify key factors influencing Airbnb pricing, with a focus on the number of beds, amenities, and scores rating."
+    },
+    {
+        "title": "Orlando Dragon Phoenix Acupuncture data analysis",
+        "year": "2024", 
+        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+        "description": "My personal project, but completely paused after I cleaned the dataset."
+    },
+    {
+        "title": "Christian Diffusion, Development, and Capitalism: Evidence from China",
+        "year": "2025", 
+        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+        "description": "Our project examines the role of Christian missionaries (1860-1950) in shaping China's economic transformation, particularly their influence on modern banking and enterprises, which contributed to the country's post-1980s GDP growth."
+    },
+    {
+        "title": "Great British Bake Off",
+        "year": "2023", 
+        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+        "description": "DSC10 Final Project - The final project involves eight sections covering exploratory data analysis, popular ingredients, gender balance, contestant performance, difficult challenges, cake difficulty, recipe name generation, and dishwashing, with varying point values for each task."
+    },
+    {
+        "title": "Image Processing Techniques and Image Classification with KNN",
+        "year": "2023", 
+        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+        "description": "DSC20 Final Project - This project provides various image processing methods such as adjusting brightness, blurring, and chroma keying, alongside a KNN classifier implementation for image recognition."
+    },
+    {
+        "title": "Gradebook",
+        "year": "2024", 
+        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+        "description": "DSC80 Project 1 - This project involves calculating total grades and analyzing student performance in a fictional data science course, CSD 18, based on various assignments and exams."
+    },
+    {
+        "title": "loan Applications",
+        "year": "2024", 
+        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+        "description": "DSC80 Project 2 - This project involves exploring a sample of LendingClub's loan dataset to understand how borrower characteristics influence loan decisions, including loan amounts, terms, and interest rates."
+    },
+    {
+        "title": "Language Models",
+        "year": "2024", 
+        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+        "description": "DSC80 Project 3 - In this project, I built language models using texts from Project Gutenberg, learned how to tokenize a corpus, estimated word sequence probabilities, and created models such as uniform, unigram, and n-gram language models."
+    },
+    {
+        "title": "Expository Visualization",
+        "year": "2025", 
+        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+        "description": "DSC106 Project 1 - Designed and created an expository visualization to analyze climate data across major U.S. cities, effectively communicating seasonal patterns in sunshine and rainfall through thoughtful data transformation and visual design choices."
+    },
+    {
+        "title": "Deceptive Visualization",
+        "year": "2025", 
+        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+        "description": "DSC106 Project 2 - Still working on it."
+    }
+]
