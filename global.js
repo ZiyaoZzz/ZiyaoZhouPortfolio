@@ -4,12 +4,6 @@ function $$(selector, context = document) {
   return Array.from(context.querySelectorAll(selector));
 }
 
-// let navLinks = $$("nav a");
-// let currentLink = navLinks.find(
-// (a) => a.host === location.host && a.pathname === location.pathname
-// );
-// currentLink?.classList.add('current');
-
 let pages = [
   { url: '', title: 'Home' },
   { url: 'contact/', title: 'Contact' },
@@ -45,13 +39,13 @@ for (const p of pages) {
   nav.append(a);
 }
 
-/*lab 3 step 4*/
+/* Theme Selector */
 document.body.insertAdjacentHTML(
   'afterbegin',
   `
   <label class="color-scheme">
     Theme:
-    <select>
+    <select id="theme-switcher">
       <option value="light dark">Automatic</option>
       <option value="light">Light</option>
       <option value="dark">Dark</option>
@@ -59,20 +53,22 @@ document.body.insertAdjacentHTML(
   </label>`
 );
 
-let colorSchemeSelect = document.querySelector('.color-scheme select');
+const themeSwitcher = document.getElementById('theme-switcher');
 
-if ('colorScheme' in localStorage) {
-  document.documentElement.style.setProperty('color-scheme', localStorage.colorScheme);
-  colorSchemeSelect.value = localStorage.colorScheme;
+// Ensure theme is properly applied from localStorage
+const savedScheme = localStorage.getItem('colorScheme');
+if (savedScheme) {
+  document.documentElement.style.colorScheme = savedScheme;
+  themeSwitcher.value = savedScheme;
 }
 
-colorSchemeSelect.addEventListener('change', (event) => {
-  console.log('color scheme changed to', event.target.value);
-  document.documentElement.style.setProperty('color-scheme', event.target.value);
-  localStorage.colorScheme = event.target.value; 
+themeSwitcher.addEventListener('change', (event) => {
+  console.log('Color scheme changed to', event.target.value);
+  document.documentElement.style.colorScheme = event.target.value;
+  localStorage.setItem('colorScheme', event.target.value);
 });
 
-/*lab 4*/
+/* Fetching JSON Data */
 export async function fetchJSON(url) {
   try {
       const response = await fetch(url);
@@ -81,51 +77,66 @@ export async function fetchJSON(url) {
           throw new Error(`Failed to fetch projects: ${response.statusText}`);
       }
 
-      const data = await response.json();
-      return data; 
+      return await response.json(); // Ensures we return parsed JSON
 
   } catch (error) {
       console.error('Error fetching or parsing JSON data:', error);
-      return null;
+      return [];  // Return an empty array instead of null to avoid breaking code
   }
 }
 
+/* Render Projects */
 export function renderProjects(projects, containerElement, headingLevel = 'h2') {
-  if (!containerElement) {
+  if (!containerElement || !(containerElement instanceof HTMLElement)) {
       console.error("Invalid container element provided.");
       return;
   }
 
   if (!Array.isArray(projects) || projects.length === 0) {
       console.warn("No projects available to render.");
+      containerElement.innerHTML = "<p>No projects available.</p>";
       return;
   }
 
   containerElement.innerHTML = '';
 
+  const validHeadingLevels = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
+  const safeHeading = validHeadingLevels.includes(headingLevel) ? headingLevel : 'h2';
+
   projects.forEach(project => {
       const article = document.createElement('article');
 
-      const title = project.title ? project.title : "Untitled Project";
-      const image = project.image ? project.image : "placeholder.png";
-      const description = project.description ? project.description : "No description available.";
+      const heading = document.createElement(safeHeading);
+      heading.textContent = project.title || "Untitled Project";
 
-      const validHeadingLevels = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
-      const safeHeading = validHeadingLevels.includes(headingLevel) ? headingLevel : 'h2';
+      const img = document.createElement('img');
+      img.src = project.image || 'placeholder.png';
+      img.alt = project.title || 'Project Image';
 
-      article.innerHTML = `
-          <${safeHeading}>${title}</${safeHeading}>
-          <img src="${image}" alt="${title}">
-          <p>${description}</p>
-      `;
+      const description = document.createElement('p');
+      description.textContent = project.description || "No description available.";
+
+      article.appendChild(heading);
+      article.appendChild(img);
+      article.appendChild(description);
 
       containerElement.appendChild(article);
   });
 }
 
-
+/* Fetch GitHub Data */
 export async function fetchGitHubData(username) {
-  const response = await fetch(`https://api.github.com/users/${username}`);
-  const data = await response.json(); 
-  return data; 
+  try {
+      const response = await fetch(`https://api.github.com/users/${username}`);
+   
+      if (!response.ok) {
+          throw new Error(`GitHub API request failed: ${response.statusText}`);
+      }
+
+      return await response.json(); // Ensures parsed JSON is returned
+
+  } catch (error) {
+      console.error("Error fetching GitHub data:", error);
+      return null; // Return null explicitly in case of failure
+  }
 }
