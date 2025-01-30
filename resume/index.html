@@ -4,7 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <base href="/ZiyaoZhouPortfolio/"> -->
-    <link rel="stylesheet" href="../styles.css">
+    <script>
+        (function () {
+            let base = document.createElement("base");
+            let isLocalhost = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost";
+    
+            // Set base href dynamically
+            base.href = isLocalhost ? "/" : "/ZiyaoZhouPortfolio/";
+    
+            console.log("Setting base href to:", base.href);
+            document.head.prepend(base);
+        })();
+    </script>
+    
     <script type="module" src="../global.js"></script>
     <title>Ziyao Zhou - Resume</title>
 

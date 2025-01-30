@@ -4,7 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Base tag must be here -->
-    <!-- <base href="/ZiyaoZhouPortfolio/"> -->
+    <script>
+        (function () {
+            let base = document.createElement("base");
+            let isLocalhost = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost";
+    
+            // Set base href dynamically
+            base.href = isLocalhost ? "/" : "/ZiyaoZhouPortfolio/";
+    
+            console.log("Setting base href to:", base.href);
+            document.head.prepend(base);
+        })();
+    </script>    
+    
     <link rel="stylesheet" href="styles.css">
     <script src="index.js" type="module" defer></script>
     <script type="module" src="global.js"></script>
@@ -16,21 +28,18 @@
     <h1>Ziyao Zhou</h1>
     <img src="images/otter.jpg" alt="Otters are cute!">
     <p>I am an undergraduate student at the University of California, San Diego, pursuing dual degrees in Cognitive Science with a focus on Machine Learning and Neural Science, and Mathematics-Computer Science, along with a minor in Data Science. I have a strong academic foundation with a 3.94 GPA and a skill set that includes programming, data analysis, machine learning, and web development. Beyond academics, I thrive in leadership roles, such as serving as the Head of the Human Resources Department for UCSD's Chinese Students and Scholars Association, where I organize large-scale events and manage communications for a diverse community. I am also passionate about building connections and supporting others, as demonstrated through my mentorship experience with newly admitted international students at UCSD.</p>
+    <br></br>
+    <h2>Latest Projects</h2>
+    <div class="projects">
+        <!-- Dynamically added content will appear here -->
+    </div>
+    
+    <h2>GitHub Profile Stats</h2>
+    <div id="profile-stats">
+        <!-- The fetched data will be dynamically added here -->
+    </div>
+    
+    <!-- Add the script to load index.js -->
+    <script src="index.js" type="module" defer></script>    
 </body>
-
-
-<br></br>
-<h2>Latest Projects</h2>
-<div class="projects">
-    <!-- Dynamically added content will appear here -->
-</div>
-
-<h2>GitHub Profile Stats</h2>
-<div id="profile-stats">
-    <!-- The fetched data will be dynamically added here -->
-</div>
-
-<!-- Add the script to load index.js -->
-<script src="index.js" type="module" defer></script>
-
 </html>

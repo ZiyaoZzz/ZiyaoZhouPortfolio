@@ -18,10 +18,10 @@ let pages = [
   { url: 'resume/', title: 'Resume' }
 ];
 
-const ARE_WE_HOME = document.documentElement.classList.contains('home');
-
 let nav = document.createElement('nav');
 document.body.prepend(nav);
+
+const ARE_WE_HOME = document.documentElement.classList.contains('home');
 
 for (const p of pages) {
   let url = p.url;
