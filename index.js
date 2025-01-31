@@ -3,15 +3,12 @@ import { fetchJSON, renderProjects, fetchGitHubData } from './global.js';
 async function displayLatestProjects() {
     try {
         const isGitHubPages = window.location.hostname.includes("github.io");
-
         const projectsUrl = isGitHubPages
             ? "https://ZiyaoZzz.github.io/ZiyaoZhouPortfolio/lib/projects.json"
-            : "../lib/projects.json"; // Local path
+            : "../lib/projects.json";
 
         console.log(`Fetching projects from: ${projectsUrl}`);
-
         const projects = await fetchJSON(projectsUrl);
-
         if (!projects || projects.length === 0) {
             console.warn("No projects found in JSON.");
             return;
@@ -24,18 +21,14 @@ async function displayLatestProjects() {
             console.error("No '.projects' container found in the DOM.");
             return;
         }
-
         renderProjects(latestProjects, projectsContainer, 'h2');
-
     } catch (error) {
         console.error("Error loading latest projects:", error);
     }
 }
 
 window.addEventListener('DOMContentLoaded', displayLatestProjects);
-
 const githubUsername = 'ZiyaoZzz';
-
 async function displayGitHubStats() {
     try {
         const githubData = await fetchGitHubData(githubUsername);
