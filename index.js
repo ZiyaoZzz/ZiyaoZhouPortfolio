@@ -1,38 +1,65 @@
-import { fetchJSON, renderProjects, fetchGitHubData } from '../global.js';
+import { fetchJSON, renderProjects, fetchGitHubData } from './global.js';
 
-async function loadLatestProjects() {
+async function displayLatestProjects() {
     try {
-        const projects = await fetchJSON('../lib/projects.json');
+        const isGitHubPages = window.location.hostname.includes("github.io");
+
+        const projectsUrl = isGitHubPages
+            ? "https://ZiyaoZzz.github.io/ZiyaoZhouPortfolio/lib/projects.json"
+            : "../lib/projects.json"; // Local path
+
+        console.log(`Fetching projects from: ${projectsUrl}`);
+
+        const projects = await fetchJSON(projectsUrl);
+
+        if (!projects || projects.length === 0) {
+            console.warn("No projects found in JSON.");
+            return;
+        }
+
         const latestProjects = projects.slice(0, 3);
         const projectsContainer = document.querySelector('.projects');
+
         if (!projectsContainer) {
-            console.error("Projects container not found.");
+            console.error("No '.projects' container found in the DOM.");
             return;
         }
 
         renderProjects(latestProjects, projectsContainer, 'h2');
+
     } catch (error) {
         console.error("Error loading latest projects:", error);
     }
 }
 
-async function loadGitHubProfile() {
+window.addEventListener('DOMContentLoaded', displayLatestProjects);
+
+const githubUsername = 'ZiyaoZzz';
+
+async function displayGitHubStats() {
     try {
-        const githubData = await fetchGitHubData('ZiyaoZzz');
+        const githubData = await fetchGitHubData(githubUsername);
+
+        if (!githubData) {
+            console.error("No GitHub data received.");
+            return;
+        }
+
         const profileStats = document.querySelector('#profile-stats');
+
         if (profileStats) {
             profileStats.innerHTML = `
                 <dl>
-                    <dt>Public Repos</dt><dd>${githubData.public_repos}</dd>
-                    <dt>Public Gists</dt><dd>${githubData.public_gists}</dd>
-                    <dt>Followers</dt><dd>${githubData.followers}</dd>
-                    <dt>Following</dt><dd>${githubData.following}</dd>
+                    <dt>Public Repos:</dt> <dd>${githubData.public_repos}</dd>
+                    <dt>Public Gists:</dt> <dd>${githubData.public_gists}</dd>
+                    <dt>Followers:</dt> <dd>${githubData.followers}</dd>
+                    <dt>Following:</dt> <dd>${githubData.following}</dd>
                 </dl>
             `;
         }
     } catch (error) {
-        console.error("Error fetching GitHub data:", error);
+        console.error("Error fetching GitHub stats:", error);
     }
 }
-loadLatestProjects();
-loadGitHubProfile();
+
+displayGitHubStats();
