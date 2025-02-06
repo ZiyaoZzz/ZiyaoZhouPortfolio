@@ -4,6 +4,7 @@ import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7.9.0/+esm";
 let query = '';
 let projects = [];
 let selectedIndex = -1; // Default: No selection
+let selectedYear = null;
 
 async function loadProjects() {
     try {
@@ -20,26 +21,27 @@ async function loadProjects() {
         let searchInput = document.querySelector('.searchBar');
         searchInput.addEventListener('input', (event) => {
             query = event.target.value.toLowerCase();
-            let filteredProjects = projects.filter(project => {
-                let values = Object.values(project).join('\n').toLowerCase();
-                return values.includes(query);
-            });
-
-            if (titleElement) {
-                titleElement.textContent = `${filteredProjects.length} Projects`;
-            }
-
-            renderProjects(filteredProjects, document.querySelector('.projects'), 'h2');
-            renderPieChart(filteredProjects);
+            updateFilteredProjects();
         });
 
     } catch (error) {
         console.error("Error loading projects:", error);
     }
 }
+
+function updateFilteredProjects() {
+    let filteredProjects = projects.filter((p) => {
+        let matchesYear = selectedYear ? p.year === selectedYear : true;
+        let matchesQuery = query ? Object.values(p).join('\n').toLowerCase().includes(query) : true;
+        return matchesYear && matchesQuery;
+    });
+
+    renderProjects(filteredProjects, document.querySelector('.projects'), 'h2');
+}
+
 function renderPieChart(projectsGiven) {
     let rolledData = d3.rollups(
-        projectsGiven,
+        projects,
         (v) => v.length,
         (d) => d.year
     );
@@ -59,53 +61,38 @@ function renderPieChart(projectsGiven) {
     let svg = d3.select("#projects-plot");
 
     arcData.forEach((d, idx) => {
+        let isSelected = selectedIndex === idx;
+
         svg.append("path")
             .attr("d", arcGenerator(d))
             .attr("fill", colors(idx))
-            .attr("class", selectedIndex === idx ? "selected" : "")
+            .attr("class", isSelected ? "selected" : "")
+            .style("cursor", "pointer")
             .on("click", () => {
-                // Toggle selection
                 selectedIndex = selectedIndex === idx ? -1 : idx;
-                let selectedYear = selectedIndex !== -1 ? data[selectedIndex].label : null;
-
-                // Filter projects based on selected year
-                let filteredProjects = selectedYear
-                    ? projects.filter((p) => p.year === selectedYear)
-                    : projects;
-
-                // Update project list
-                renderProjects(filteredProjects, document.querySelector('.projects'), 'h2');
-
-                // Update pie chart with highlighting
-                renderPieChart(projectsGiven);
+                selectedYear = selectedIndex !== -1 ? data[selectedIndex].label : null;
+                updateFilteredProjects();
+                renderPieChart(projects); 
             });
     });
 
     let legend = d3.select(".legend");
 
     data.forEach((d, idx) => {
+        let isSelected = selectedIndex === idx;
+
         legend.append("li")
             .attr("style", `--color:${colors(idx)}`)
-            .attr("class", `legend-item ${selectedIndex === idx ? "selected" : ""}`)
+            .attr("class", `legend-item ${isSelected ? "selected" : ""}`)
             .html(`<span class="swatch"></span> ${d.label} <em>(${d.value})</em>`)
+            .style("cursor", "pointer")
             .on("click", () => {
-                // Toggle selection
                 selectedIndex = selectedIndex === idx ? -1 : idx;
-                let selectedYear = selectedIndex !== -1 ? data[selectedIndex].label : null;
-
-                // Filter projects based on selected year
-                let filteredProjects = selectedYear
-                    ? projects.filter((p) => p.year === selectedYear)
-                    : projects;
-
-                // Update project list
-                renderProjects(filteredProjects, document.querySelector('.projects'), 'h2');
-
-                // Update pie chart with highlighting
-                renderPieChart(projectsGiven);
+                selectedYear = selectedIndex !== -1 ? data[selectedIndex].label : null;
+                updateFilteredProjects();
+                renderPieChart(projects);
             });
     });
 }
-
 
 loadProjects();
