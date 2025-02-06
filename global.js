@@ -21,7 +21,6 @@ let pages = [
   { url: "projects/", title: "Projects" },
   { url: "https://github.com/ZiyaoZzz", title: "GitHub" },
   { url: "resume/", title: "Resume" },
-
 ];
 
 let nav = document.createElement("nav");
@@ -115,7 +114,7 @@ export async function fetchJSON(url) {
   }
 }
 
-/* Render projects */
+/* Render projects with year */
 export function renderProjects(projects, containerElement, headingLevel = "h2") {
   if (!containerElement || !(containerElement instanceof HTMLElement)) {
     console.error("Invalid containerElement provided.");
@@ -143,12 +142,23 @@ export function renderProjects(projects, containerElement, headingLevel = "h2") 
     img.src = project.image || "default-image.png";
     img.alt = project.title || "Project Image";
 
+    const descriptionWrapper = document.createElement("div");
+
     const description = document.createElement("p");
     description.textContent = project.description || "No description available.";
 
+    const year = document.createElement("p");
+    year.textContent = project.year ? `c. ${project.year}` : "Year: Unknown";
+    year.style.color = "gray";
+    year.style.fontFamily = "Baskerville, serif";
+    year.style.fontVariantNumeric = "oldstyle-nums";
+
+    descriptionWrapper.appendChild(description);
+    descriptionWrapper.appendChild(year);
+
     article.appendChild(heading);
     article.appendChild(img);
-    article.appendChild(description);
+    article.appendChild(descriptionWrapper);
 
     containerElement.appendChild(article);
   });

@@ -176,5 +176,97 @@ label.color-scheme select {
   font-size: 1.5rem; 
 }
 
+/* lab 5 */
+#projects-plot {
+  flex: 1;
+  min-width: 15em; 
+  max-width: 20em;
+  margin-block: 2em;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  gap: 2em;
+}
+
+.legend {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start; /* Align items from the start */
+  gap: 1em;
+  padding: 1em;
+  margin: 2em auto;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Ensure items have a minimum width but can grow */
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  min-width: 9em; /* Ensures at least three items per row based on container size */
+  flex: 1; /* Allows items to expand */
+}
 
 
+.swatch {
+  width: 12px;
+  height: 12px;
+  aspect-ratio: 1 / 1; 
+  background-color: var(--color); 
+  border-radius: 3px; 
+  display: inline-block;
+}
+
+
+.searchBar {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 1em 0;
+}
+
+#projects-plot {
+  transition: 300ms;
+}
+
+/* Reduce opacity for non-hovered wedges */
+svg:has(path:hover) path:not(:hover) {
+  opacity: 0.5;
+}
+
+/* Add smooth transition effect */
+path {
+  transition: opacity 300ms ease-in-out;
+}
+
+
+
+
+.selected {
+  --color: oklch(40% 0.25 145) !important; 
+
+  &:is(path) {
+    fill: var(--color);
+  }
+}
+.selected path {
+  fill: var(--color);
+}
+
+.selected li {
+  font-weight: bold;
+}
+
+path {
+  cursor: pointer;
+}
+
+.legend li {
+  list-style: none;
+}
