@@ -3,7 +3,7 @@ import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7.9.0/+esm";
 
 let query = '';
 let projects = [];
-let selectedIndex = -1; // Default: No selection
+let selectedIndex = -1; 
 let selectedYear = null;
 
 async function loadProjects() {
@@ -58,8 +58,8 @@ function renderPieChart(projectsGiven) {
     d3.select("#projects-plot").selectAll("*").remove();
     d3.select(".legend").selectAll("*").remove();
 
+    
     let svg = d3.select("#projects-plot");
-
     arcData.forEach((d, idx) => {
         let isSelected = selectedIndex === idx;
 
@@ -77,10 +77,8 @@ function renderPieChart(projectsGiven) {
     });
 
     let legend = d3.select(".legend");
-
     data.forEach((d, idx) => {
         let isSelected = selectedIndex === idx;
-
         legend.append("li")
             .attr("style", `--color:${colors(idx)}`)
             .attr("class", `legend-item ${isSelected ? "selected" : ""}`)
