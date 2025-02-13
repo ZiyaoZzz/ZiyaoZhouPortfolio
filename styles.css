@@ -1,6 +1,5 @@
 body {
   font: 100%/1.5 system-ui;
-  /* background-color: #e9f3ff; */
   max-width: 100ch;
   margin-inline: auto;
   padding: 1rem;
@@ -194,7 +193,7 @@ label.color-scheme select {
   flex: 1;
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start; /* Align items from the start */
+  justify-content: flex-start;
   gap: 1em;
   padding: 1em;
   margin: 2em auto;
@@ -207,8 +206,8 @@ label.color-scheme select {
   display: flex;
   align-items: center;
   gap: 0.5em;
-  min-width: 9em; /* Ensures at least three items per row based on container size */
-  flex: 1; /* Allows items to expand */
+  min-width: 9em; 
+  flex: 1;
 }
 
 
@@ -269,4 +268,145 @@ path {
 
 .legend li {
   list-style: none;
+}
+
+
+
+
+
+/* lab 6 */
+#stats dl {
+  display: grid; 
+  grid-template-columns: repeat(6, 1fr); 
+  grid-gap: 20px;
+  padding: 20px;
+  background-color:aliceblue;
+}
+
+#stats dt {
+  grid-row: 1;
+  font-weight: normal;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+#stats dd {
+  grid-row: 2;
+  font-size: 1.4rem;
+  font-weight: normal;
+}
+
+
+/*chart style */
+#chart {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.gridlines line {
+  stroke: #ddd;
+  stroke-width: 1px;
+  stroke-dasharray: 2, 2;
+}
+
+.gridlines path {
+  display: none;
+}
+
+circle {
+  fill: steelblue;
+  opacity: 0.7;
+}
+
+circle:hover {
+  fill: orange;
+  opacity: 1;
+}
+
+
+/*tooltip */
+dl.info {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 5px 10px;
+  background: rgba(255, 255, 255, 0.60);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  font-size: 14px;
+  position: absolute;
+  pointer-events: none;
+}
+
+.tooltip {
+  position: fixed;
+  transition: opacity 200ms, visibility 200ms;
+} 
+
+
+dl.info.tooltip[hidden] {
+  display: none !important;
+}
+
+circle {
+  transition: 200ms;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+circle:hover {
+  transform: scale(1.5);
+}
+
+
+
+/* brushing */
+@keyframes marching-ants {
+  to {
+    stroke-dashoffset: -8;
+  }
+}
+
+.selection {
+  fill-opacity: 0.1;
+  stroke: black;
+  stroke-opacity: 0.7;
+  stroke-dasharray: 5 3;
+  animation: marching-ants 2s linear infinite;
+}
+
+circle.selected {
+  fill: #ff6b6b !important;
+  opacity: 1 !important;
+}
+
+/*language breakdown */
+#language-breakdown {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 20px; 
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-top: 10px;
+  padding: 10px;
+}
+
+.language-item {
+  
+  border-radius: 8px;
+  padding: 10px 15px;
+}
+
+.language-item dt {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.language-item dd {
+  margin: 5px 0;
+  font-size: 16px;
 }
