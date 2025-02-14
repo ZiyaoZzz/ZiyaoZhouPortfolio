@@ -280,7 +280,6 @@ path {
   grid-template-columns: repeat(6, 1fr); 
   grid-gap: 20px;
   padding: 20px;
-  background-color:aliceblue;
 }
 
 #stats dt {
