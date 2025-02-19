@@ -2,6 +2,7 @@ import { fetchJSON, renderProjects, fetchGitHubData } from './global.js';
 
 // Determine environment and set the base path for images
 const isGitHubPages = window.location.hostname.includes("github.io");
+console.log("Hostname:", window.location.hostname, "isGitHubPages:", isGitHubPages);
 const baseImagePath = isGitHubPages 
     ? "/ZiyaoZhouPortfolio/images/"   // GitHub Pages: images folder at the repo root
     : "../images/";                   // Local: relative path from index.js location
