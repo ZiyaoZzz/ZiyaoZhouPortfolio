@@ -8,19 +8,19 @@
     {
         "title": "The Simpsons Face Clustering and Mapping",
         "year": "2024", 
-        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+        "image": "simpsons.jpg",
         "description": "Developed a pipeline to cluster Simpsons character faces and map third-party images at various angles using Python."
     },
     {
         "title": "Recipe Nutrition VS. Preparation Time & Steps Dataset Analysis and Prediction",
         "year": "2024", 
-        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+        "image": "Recipe.jpg",
         "description": "Analyzed correlations between movie budgets and revenues using Python, and developed predictive models to identify patterns."
     },
     {
         "title": "California Airbnb Pricing and Potential Factors Analysis",
         "year": "2024", 
-        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+        "image": "Airbnb.jpg",
         "description": "Utilized Python (Pandas, NumPy, Matplotlib) for data analysis and visualization, applying statistical techniques to identify key factors influencing Airbnb pricing, with a focus on the number of beds, amenities, and scores rating."
     },
     {
@@ -32,7 +32,7 @@
     {
         "title": "Christian Diffusion, Development, and Capitalism: Evidence from China",
         "year": "2025", 
-        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+        "image": "Christian.jpg",
         "description": "Our project examines the role of Christian missionaries (1860-1950) in shaping China's economic transformation, particularly their influence on modern banking and enterprises, which contributed to the country's post-1980s GDP growth."
     },
     {

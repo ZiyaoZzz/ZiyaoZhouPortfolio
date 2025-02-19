@@ -5,8 +5,8 @@ import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7.9.0/+esm";
 const isGitHubPages = window.location.hostname.includes("github.io");
 console.log("Hostname:", window.location.hostname, "isGitHubPages:", isGitHubPages);
 const baseImagePath = isGitHubPages 
-    ? "/ZiyaoZhouPortfolio/images/"   // GitHub Pages: images folder at the repo root
-    : "../images/";                   // Local: relative path from index.js location
+    ? "/ZiyaoZhouPortfolio/images/" 
+    : "../images/";               
 
 let query = '';
 let projects = [];
