@@ -1,8 +1,13 @@
 import { fetchJSON, renderProjects, fetchGitHubData } from './global.js';
 
+// Determine environment and set the base path for images
+const isGitHubPages = window.location.hostname.includes("github.io");
+const baseImagePath = isGitHubPages 
+    ? "/ZiyaoZhouPortfolio/images/"   // GitHub Pages: images folder at the repo root
+    : "../images/";                   // Local: relative path from index.js location
+
 async function displayLatestProjects() {
     try {
-        const isGitHubPages = window.location.hostname.includes("github.io");
         const projectsUrl = isGitHubPages
             ? "https://ZiyaoZzz.github.io/ZiyaoZhouPortfolio/lib/projects.json"
             : "../lib/projects.json";
@@ -25,13 +30,25 @@ async function displayLatestProjects() {
         // Render the latest projects
         renderProjects(latestProjects, projectsContainer, 'h2');
 
-        // **Crop images** after rendering
-        const images = projectsContainer.querySelectorAll('img');
-        images.forEach((img) => {
-            img.classList.add('cropped-image');
-        });
+        // After rendering, fix image paths and crop images
+        applyImageCropping();
     } catch (error) {
         console.error("Error loading latest projects:", error);
+    }
+}
+
+function applyImageCropping() {
+    const projectsContainer = document.querySelector('.projects');
+    if (projectsContainer) {
+        const images = projectsContainer.querySelectorAll('img');
+        images.forEach((img) => {
+            // If the src doesn't already start with "http" or "/", prepend the baseImagePath.
+            let src = img.getAttribute("src");
+            if (!src.startsWith("http") && !src.startsWith("/")) {
+                img.src = baseImagePath + src;
+            }
+            img.classList.add('cropped-image');
+        });
     }
 }
 

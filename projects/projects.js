@@ -1,6 +1,12 @@
 import { fetchJSON, renderProjects } from '../global.js';
 import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7.9.0/+esm";
 
+// Determine base path for images based on environment
+const isGitHubPages = window.location.hostname.includes("github.io");
+const baseImagePath = isGitHubPages 
+    ? "/ZiyaoZhouPortfolio/images/"   // GitHub Pages: images folder at repo root
+    : "../images/";                   // Local: relative path from project.js location
+
 let query = '';
 let projects = [];
 let selectedIndex = -1; 
@@ -16,7 +22,6 @@ async function loadProjects() {
         }
 
         renderProjects(projects, document.querySelector('.projects'), 'h2');
-        // After rendering, add the cropping class to all project images
         applyImageCropping();
 
         renderPieChart(projects);
@@ -101,15 +106,13 @@ function applyImageCropping() {
     if (projectsContainer) {
         const images = projectsContainer.querySelectorAll('img');
         images.forEach(img => {
+            let src = img.getAttribute("src");
+            if (!src.startsWith("http") && !src.startsWith("/")) {
+                img.src = baseImagePath + src;
+            }
             img.classList.add('cropped-image');
         });
     }
 }
 
 loadProjects();
-
-async function displayGitHubStats() {
-    // Your GitHub stats code (if any) would be here...
-}
-
-displayGitHubStats();
