@@ -2,7 +2,7 @@
     {
         "title": "Bikewatching",
         "year": "2025", 
-        "image": "/images/lab7_img.jpg",
+        "image": "../images/lab7_img.jpg",
         "description": "dsc106 lab7 "
     },
     {
