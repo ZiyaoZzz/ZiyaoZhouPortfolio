@@ -21,13 +21,22 @@ async function displayLatestProjects() {
             console.error("No '.projects' container found in the DOM.");
             return;
         }
+
+        // Render the latest projects
         renderProjects(latestProjects, projectsContainer, 'h2');
+
+        // **Crop images** after rendering
+        const images = projectsContainer.querySelectorAll('img');
+        images.forEach((img) => {
+            img.classList.add('cropped-image');
+        });
     } catch (error) {
         console.error("Error loading latest projects:", error);
     }
 }
 
 window.addEventListener('DOMContentLoaded', displayLatestProjects);
+
 const githubUsername = 'ZiyaoZzz';
 async function displayGitHubStats() {
     try {
