@@ -1,5 +1,11 @@
 [
     {
+        "title": "Bikewatching",
+        "year": "2025", 
+        "image": "/images/lab7_img.jpg",
+        "description": "dsc106 lab7 "
+    },
+    {
         "title": "The Simpsons Face Clustering and Mapping",
         "year": "2024", 
         "image": "https://vis-society.github.io/labs/2/images/empty.svg",

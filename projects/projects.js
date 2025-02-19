@@ -16,6 +16,9 @@ async function loadProjects() {
         }
 
         renderProjects(projects, document.querySelector('.projects'), 'h2');
+        // After rendering, add the cropping class to all project images
+        applyImageCropping();
+
         renderPieChart(projects);
 
         let searchInput = document.querySelector('.searchBar');
@@ -37,6 +40,7 @@ function updateFilteredProjects() {
     });
 
     renderProjects(filteredProjects, document.querySelector('.projects'), 'h2');
+    applyImageCropping();
 }
 
 function renderPieChart(projectsGiven) {
@@ -58,7 +62,6 @@ function renderPieChart(projectsGiven) {
     d3.select("#projects-plot").selectAll("*").remove();
     d3.select(".legend").selectAll("*").remove();
 
-    
     let svg = d3.select("#projects-plot");
     arcData.forEach((d, idx) => {
         let isSelected = selectedIndex === idx;
@@ -93,4 +96,20 @@ function renderPieChart(projectsGiven) {
     });
 }
 
+function applyImageCropping() {
+    const projectsContainer = document.querySelector('.projects');
+    if (projectsContainer) {
+        const images = projectsContainer.querySelectorAll('img');
+        images.forEach(img => {
+            img.classList.add('cropped-image');
+        });
+    }
+}
+
 loadProjects();
+
+async function displayGitHubStats() {
+    // Your GitHub stats code (if any) would be here...
+}
+
+displayGitHubStats();

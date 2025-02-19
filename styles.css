@@ -271,6 +271,12 @@ path {
 }
 
 
+.cropped-image {
+  width: 300px;
+  height: 200px;      
+  object-fit: cover; 
+  overflow: hidden;
+}
 
 
 
