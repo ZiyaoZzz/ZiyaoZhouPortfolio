@@ -14,13 +14,37 @@
   <h1>Meta</h1>
   <p>Wabby Wabbo</p>
 
+  <!-- Filtering UI -->
   <h2>Summary</h2>
+  <div id="commit-filter">
+    <label>
+      Show commits until:
+      <input type="range" id="commit-slider" min="0" max="100" value="100">
+      <time id="selectedTime"></time>
+    </label>
+  </div>
   <div id="stats"></div>
-  <!-- Make sure there's NO extra </div> here -->
-
+  <dl class="files">
+    <!-- we want the following structure for each file-->
+    <div>
+      <dt>
+        <code>{file.name}</code>
+      </dt>
+      <dd>{file.lines.length} lines</dd>
+    </div>
+    <div>
+      ...
+    </div>
+  </dl>
   <h2>Commits by Time of Day</h2>
-  <div id="chart"></div>
 
+  <!-- Filtering UI positioned above the scatter plot -->
+  <div id="chart"></div>
+  <!-- Add this near your language breakdown section -->
+  <div class="visualization-container">
+    <svg id="language-pie" viewBox="-50 -50 100 100"></svg>
+    <div id="language-breakdown"></div>
+  </div>
   <dl id="commit-tooltip" class="info tooltip" hidden>
     <dt>Commit</dt>
     <dd><a href="" id="commit-link" target="_blank"></a></dd>
