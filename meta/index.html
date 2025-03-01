@@ -10,54 +10,39 @@
   <script src="main.js"></script>
   <title>Meta</title>
 </head>
-<body>
+<body class="meta-page">
   <h1>Meta</h1>
   <p>Wabby Wabbo</p>
 
-  <!-- Filtering UI -->
   <h2>Summary</h2>
-  <div id="commit-filter">
+  <div id="stats"></div>
+
+  <h2>Commits by Time of Day</h2>
+  <!-- <div id="commit-filter">
     <label>
       Show commits until:
       <input type="range" id="commit-slider" min="0" max="100" value="100">
       <time id="selectedTime"></time>
     </label>
-  </div>
-  <div id="stats"></div>
-  <dl class="files">
-    <!-- we want the following structure for each file-->
-    <div>
-      <dt>
-        <code>{file.name}</code>
-      </dt>
-      <dd>{file.lines.length} lines</dd>
-    </div>
-    <div>
-      ...
-    </div>
-  </dl>
-  <h2>Commits by Time of Day</h2>
+  </div> -->
 
-  <!-- Filtering UI positioned above the scatter plot -->
-  <div id="chart"></div>
-  <!-- Add this near your language breakdown section -->
-  <div class="visualization-container">
-    <svg id="language-pie" viewBox="-50 -50 100 100"></svg>
-    <div id="language-breakdown"></div>
+  <div id="scrollytelling">
+    <div id="scroll-container">
+      <div id="spacer"></div>
+      <div id="items-container"></div>
+    </div>
+    <div id="chart"></div>
   </div>
+
   <dl id="commit-tooltip" class="info tooltip" hidden>
     <dt>Commit</dt>
     <dd><a href="" id="commit-link" target="_blank"></a></dd>
-
     <dt>Date</dt>
     <dd id="commit-date"></dd>
-
     <dt>Time</dt>
     <dd id="commit-time"></dd>
-
     <dt>Author</dt>
     <dd id="commit-author"></dd>
-
     <dt>Lines Edited</dt>
     <dd id="commit-lines"></dd>
   </dl>

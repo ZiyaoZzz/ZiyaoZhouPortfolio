@@ -433,3 +433,101 @@ circle.selected {
   margin-left: 0;
 }
 
+
+
+.meta-page {
+  max-width: min(120ch, 80vw);
+  margin: 0 auto;
+}
+
+#scrollytelling {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: subgrid;
+}
+
+#scroll-container {
+  grid-column: 1;
+  position: relative;
+  width: 95%;
+  height: 350px;
+  overflow-y: scroll;
+  border: 1px solid #ccc;
+  margin-bottom: 50px;
+}
+
+#chart {
+  grid-column: 2;
+}
+
+#spacer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: none;
+  pointer-events: none;
+}
+
+#items-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.item {
+  height: 30px;
+  padding: 10px;
+  box-sizing: border-box;
+  border-bottom: 2px solid #eee;
+}
+
+
+
+.item {
+  height: 80px;
+  padding: 15px;
+  box-sizing: border-box;
+  border-bottom: 2px solid #eee;
+  background: white;
+}
+
+.commit-content {
+  max-width: 90%;
+}
+
+.commit-content h3 {
+  margin: 0 0 8px 0;
+  font-size: 1em;
+  color: #666;
+}
+
+.commit-content p {
+  margin: 0;
+  line-height: 1.4;
+}
+
+#scrollytelling {
+  display: grid;
+  grid-template-columns: minmax(300px, 2fr) 3fr;
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+#commit-tooltip {
+  position: absolute;
+  pointer-events: none; /* Prevents tooltip from capturing mouse events */
+  background-color: white;
+  border: 1px solid black;
+  padding: 5px;
+  z-index: 1000; /* Ensures it appears above other elements */
+}
+
+.commit-dot {
+  transition: fill 0.2s;
+}
+
+.commit-dot:hover {
+  fill: #ff6b6b; /* Or your preferred highlight color */
+}
