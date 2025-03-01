@@ -12,7 +12,7 @@ let wedges = {};
 // At the top of the file, declare variables without const
 let scrollContainer, spacer, itemsContainer;
 let NUM_ITEMS = 100;
-let ITEM_HEIGHT = 80; // Increased height for better readability
+let ITEM_HEIGHT = 130; // Increased height for better readability
 let VISIBLE_COUNT = 10;
 let totalHeight;
 
@@ -213,14 +213,6 @@ function createScatterplot() {
   const g = svg.append('g')
     .attr('transform', `translate(${margin.left},${margin.top})`);
 
-  // Add the clipped plot area
-  const plotArea = g.append('g')
-    .attr('clip-path', 'url(#plot-area)');
-
-  // Add the dots group inside the clipped area
-  plotArea.append('g')
-    .attr('class', 'dots');
-
   // Initialize scales
   xScale = d3.scaleTime()
     .domain(d3.extent(commits, d => d.datetime))
@@ -230,10 +222,37 @@ function createScatterplot() {
     .domain([0, 24])
     .range([usableHeight, 0]);
 
-  // Initialize rScale
   rScale = d3.scaleSqrt()
     .domain(d3.extent(commits, d => d.totalLines))
-    .range([9, 27]);
+    .range([7, 27]);
+
+  // Add the dots group and create dots with hover effects
+  const dots = g.append('g')
+    .attr('class', 'dots')
+    .attr('clip-path', 'url(#plot-area)');
+    
+  const sortedCommits = d3.sort(commits, (d) => -d.totalLines);
+
+  dots.selectAll('circle')
+    .data(sortedCommits)
+    .join('circle')
+    .attr('cx', (d) => xScale(d.datetime))
+    .attr('cy', (d) => yScale(d.hourFrac))
+    .attr('r', (d) => rScale(d.totalLines))
+    .style('fill', 'steelblue')
+    .style('fill-opacity', 0.7)
+    .on('mouseenter', function (event, commit) {
+      d3.select(event.currentTarget).style('fill-opacity', 1);
+      updateTooltipContent(commit);
+      updateTooltipVisibility(true);
+      updateTooltipPosition(event);
+    })
+    .on('mousemove', updateTooltipPosition)
+    .on('mouseleave', function (event) {
+      d3.select(event.currentTarget).style('fill-opacity', 0.7);
+      updateTooltipContent({});
+      updateTooltipVisibility(false);
+    });
 
   // Add axes
   g.append('g')
@@ -366,17 +385,14 @@ function renderItems(startIndex) {
     .append('div')
     .attr('class', 'item')
     .html((commit, index) => `
-      <p>
-        On ${commit.datetime.toLocaleString("en", {
-          dateStyle: "full",
-          timeStyle: "short"
-        })}, I made
-
-          ${startIndex + index > 0 ? 'another glorious commit' : 'my first commit, and it was glorious'}. I edited ${commit.totalLines} lines across 
-        ${d3.rollups(commit.lines, D => D.length, d => d.file).length} files. 
-        Then I looked over all I had made, and I saw that it was very good.
-      </p>
-    `)
+    <p>
+      On ${commit.datetime.toLocaleString("en", { dateStyle: "full", timeStyle: "short" })}, I made
+  
+        ${startIndex + index > 0 ? 'another glorious commit' : 'my first commit, and it was glorious'}. I edited ${commit.totalLines} lines across 
+      ${d3.rollups(commit.lines, D => D.length, d => d.file).length} files. Then I looked over all I had made, and I saw that it was very good.
+    </p>
+  `)
+  
     .style('position', 'absolute')
     .style('top', (_, idx) => `${(startIndex + idx) * ITEM_HEIGHT}px`);
     
@@ -411,6 +427,9 @@ function updateScatterPlot(visibleCommits) {
     .selectAll('circle')
     .data(commits, d => d.id);
   
+  // Exit selection (remove dots that shouldn't be there)
+  dots.exit().remove();
+  
   // Update existing dots
   dots.transition(t)
     .attr('cx', d => xScale(d.datetime))
@@ -421,14 +440,18 @@ function updateScatterPlot(visibleCommits) {
     .style('pointer-events', d => d.datetime <= latestVisibleDate ? 'all' : 'none');
   
   // Enter new dots
-  const dotsEnter = dots.enter()
+  dots.enter()
     .append('circle')
     .attr('cx', d => xScale(d.datetime))
     .attr('cy', d => yScale(d.hourFrac))
-    .attr('r', d => rScale(d.totalLines))
+    .attr('r', 0) // Start with radius 0 for animation
     .style('opacity', d => d.datetime <= latestVisibleDate ? 1 : 0.2)
-    .style('fill', d => d.datetime <= latestVisibleDate ? 'var(--color-accent)' : 'steelblue');
+    .style('fill', d => d.datetime <= latestVisibleDate ? 'var(--color-accent)' : 'steelblue')
+    .style('pointer-events', d => d.datetime <= latestVisibleDate ? 'all' : 'none')
+    .transition(t)
+    .attr('r', d => rScale(d.totalLines));
 }
+
 
 // Update the DOMContentLoaded event handler
 document.addEventListener('DOMContentLoaded', async () => {

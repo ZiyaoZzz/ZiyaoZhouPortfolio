@@ -320,15 +320,21 @@ path {
 }
 
 circle {
-  fill: steelblue;
-  opacity: 0.7;
+  transition: 200ms;
+  transform-origin: center;
+  transform-box: fill-box;
+  cursor: pointer;
 }
 
 circle:hover {
-  fill: orange;
-  opacity: 1;
+  fill-opacity: 1 !important;
+  transform: scale(1.1);
 }
 
+circle.selected {
+  fill: #ff6b6b !important;
+  opacity: 1 !important;
+}
 
 /*tooltip */
 dl.info {
@@ -356,18 +362,6 @@ dl.info.tooltip[hidden] {
   display: none !important;
 }
 
-circle {
-  transition: 200ms;
-  transform-origin: center;
-  transform-box: fill-box;
-}
-
-circle:hover {
-  transform: scale(1.5);
-}
-
-
-
 /* brushing */
 @keyframes marching-ants {
   to {
@@ -381,11 +375,6 @@ circle:hover {
   stroke-opacity: 0.7;
   stroke-dasharray: 5 3;
   animation: marching-ants 2s linear infinite;
-}
-
-circle.selected {
-  fill: #ff6b6b !important;
-  opacity: 1 !important;
 }
 
 /*language breakdown */
@@ -476,21 +465,12 @@ circle.selected {
   width: 100%;
 }
 
-.item {
-  height: 30px;
-  padding: 10px;
-  box-sizing: border-box;
-  border-bottom: 2px solid #eee;
-}
-
-
 
 .item {
-  height: 80px;
+  height: 130px;
   padding: 15px;
   box-sizing: border-box;
   border-bottom: 2px solid #eee;
-  background: white;
 }
 
 .commit-content {
@@ -517,11 +497,11 @@ circle.selected {
 
 #commit-tooltip {
   position: absolute;
-  pointer-events: none; /* Prevents tooltip from capturing mouse events */
+  pointer-events: none;
   background-color: white;
   border: 1px solid black;
   padding: 5px;
-  z-index: 1000; /* Ensures it appears above other elements */
+  z-index: 1000;
 }
 
 .commit-dot {
