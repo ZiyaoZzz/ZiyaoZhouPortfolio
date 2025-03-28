@@ -1,4 +1,4 @@
-console.log("IT’S ALIVE!");
+console.log("IT'S ALIVE!");
 
 function $$(selector, context = document) {
   return Array.from(context.querySelectorAll(selector));
@@ -26,6 +26,56 @@ let pages = [
 
 let nav = document.createElement("nav");
 document.body.prepend(nav);
+
+// Add a style element for our fancy navigation effects
+const navStyle = document.createElement('style');
+navStyle.textContent = `
+  nav a {
+    position: relative;
+    transition: color 0.3s ease;
+    text-decoration: none;
+    border-bottom: none; /* Remove any default border */
+  }
+  
+  nav a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: var(--link-color, #3b82f6);
+    transition: width 0.3s ease;
+  }
+  
+  nav a:hover {
+    color: var(--link-color, #3b82f6);
+    transform: translateY(-2px);
+    transition: transform 0.2s ease, color 0.3s ease;
+    border-bottom: none; /* Ensure no border on hover */
+  }
+  
+  nav a:hover::after {
+    width: 100%;
+  }
+  
+  nav a.current::after {
+    width: 100%;
+    background-color: var(--link-color, #3b82f6);
+  }
+  
+  /* Remove gray lines from divs */
+  div {
+    border-bottom: none;
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    nav a, nav a::after {
+      transition: none;
+    }
+  }
+`;
+document.head.appendChild(navStyle);
 
 for (const p of pages) {
   let url = p.url;

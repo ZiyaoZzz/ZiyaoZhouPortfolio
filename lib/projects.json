@@ -1,9 +1,21 @@
 [
     {
+        "title": "Schrodinger's Mice",
+        "year": "2025", 
+        "image": "Schrodingers_Mice.jpg",
+        "description": "Dsc106 Final project - People Choice Awards top 5% by popular vote; Mice movements straightforward stimulation based on their activities and temperature in real dataset data."
+    },
+    {
+        "title": "Pokemon generation analysis",
+        "year": "2025", 
+        "image": "pokemon.jpg",
+        "description": "Math 189 Final project - Our Pokemon analysis focused on identifying significant statistical patterns in base stats, Pokémon typing distributions, and game sales trends to understand how Pokémon game design has changed over the years."
+    },
+    {
         "title": "Bikewatching",
         "year": "2025", 
         "image": "lab7_img.jpg",
-        "description": "dsc106 lab7 "
+        "description": "dsc106 lab7 - Regarding the bike traffic at a boston area over time."
     },
     {
         "title": "The Simpsons Face Clustering and Mapping",
@@ -37,7 +49,7 @@
     },
     {
         "title": "Great British Bake Off",
-        "year": "2023", 
+        "year": "2022", 
         "image": "https://vis-society.github.io/labs/2/images/empty.svg",
         "description": "DSC10 Final Project - The final project involves eight sections covering exploratory data analysis, popular ingredients, gender balance, contestant performance, difficult challenges, cake difficulty, recipe name generation, and dishwashing, with varying point values for each task."
     },

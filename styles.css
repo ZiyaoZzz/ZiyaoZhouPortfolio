@@ -2,10 +2,62 @@ body {
   font: 100%/1.5 system-ui;
   max-width: 100ch;
   margin-inline: auto;
-  padding: 1rem;
+  padding: 2rem;
   accent-color: var(--color-accent);
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.8;
+}
 
+/* Enhanced heading styles */
+h1 {
+  font-size: 400%;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(45deg, var(--color-accent), #000000);
+  -webkit-background-clip: text;
+  /* -webkit-text-fill-color: transparent; */
+  text-align: center;
+}
+
+/* Profile image enhancement */
+img {
+  max-width: 400px;
+  max-height: 650px;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  display: block;
+  margin: 2rem auto;
+  transition: transform 0.3s ease;
+}
+
+img:hover {
+  transform: scale(1.02);
+}
+
+/* Section headings */
+h2 {
+  font-size: 2rem;
+  margin: 2rem 0 1rem;
+  text-align: center;
+  position: relative;
+}
+
+h2::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: var(--color-accent);
+  margin: 0.5rem auto;
+  border-radius: 2px;
+}
+
+/* Projects and GitHub stats sections */
+.projects, #profile-stats {
+  background: color-mix(in oklch, var(--color-accent), canvas 97%);
+  padding: 2rem;
+  border-radius: 15px;
+  margin: 2rem 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
 html {
@@ -14,13 +66,7 @@ html {
   color-scheme: light dark;
 }
 nav a:hover {
-  border-bottom: 0.4em solid var(--color-accent);
   background-color: color-mix(in oklch, var(--color-accent), canvas 85%);
-}
-
-img {
-  max-width: 400px;
-  max-height: 650px;
 }
 
 nav {
@@ -49,7 +95,6 @@ nav a {
 }
 nav a.current {
   border-bottom-width: 1px;
-  border-bottom: 0.4em solid oklch(80% 3% 200);
   padding-bottom: 0.5rem;
 }
 
@@ -467,7 +512,7 @@ dl.info.tooltip[hidden] {
 
 
 .item {
-  height: 130px;
+  height: 150px;
   padding: 15px;
   box-sizing: border-box;
   border-bottom: 2px solid #eee;
@@ -509,5 +554,35 @@ dl.info.tooltip[hidden] {
 }
 
 .commit-dot:hover {
-  fill: #ff6b6b; /* Or your preferred highlight color */
+  fill: #ff6b6b; 
+}
+
+.file-group {
+  transition: transform 300ms ease-out;
+}
+
+.file-group:hover {
+  transform: translateX(5px);
+}
+
+.unit {
+  transition: all 200ms;
+  cursor: pointer;
+}
+
+.unit:hover {
+  transform: scale(1.2);
+  z-index: 10;
+}
+
+.file-label {
+  font-family: monospace;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 700px;
+}
+
+.viz-title {
+  fill: var(--color-text);
 }

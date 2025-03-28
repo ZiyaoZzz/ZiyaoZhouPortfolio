@@ -1,6 +1,6 @@
 let data = [];
 let commits = [];
-let xScale, yScale, rScale;  // Added rScale to global scope
+let xScale, yScale, rScale;
 let commitProgress = 100;
 let selectedCommits = [];
 let timeScale;
@@ -9,17 +9,13 @@ let oldData = [];
 const transitionDuration = 750;
 let wedges = {};
 
-// At the top of the file, declare variables without const
 let scrollContainer, spacer, itemsContainer;
 let NUM_ITEMS = 100;
-let ITEM_HEIGHT = 130; // Increased height for better readability
+let ITEM_HEIGHT = 130;
 let VISIBLE_COUNT = 10;
 let totalHeight;
-
-// Add this to track scroll progress
 let currentScrollIndex = 0;
 
-// Initialize scroll-related elements
 function initializeScroll() {
   console.log('Initializing scroll...');
   
@@ -437,19 +433,36 @@ function updateScatterPlot(visibleCommits) {
     .attr('r', d => rScale(d.totalLines))
     .style('opacity', d => d.datetime <= latestVisibleDate ? 1 : 0)
     .style('fill', d => d.datetime <= latestVisibleDate ? 'var(--color-accent)' : 'steelblue')
+    .style('fill-opacity', 0.7)
     .style('pointer-events', d => d.datetime <= latestVisibleDate ? 'all' : 'none');
   
   // Enter new dots
-  dots.enter()
+  const newDots = dots.enter()
     .append('circle')
     .attr('cx', d => xScale(d.datetime))
     .attr('cy', d => yScale(d.hourFrac))
     .attr('r', 0) // Start with radius 0 for animation
-    .style('opacity', d => d.datetime <= latestVisibleDate ? 1 : 0.2)
+    .style('opacity', d => d.datetime <= latestVisibleDate ? 1 : 0.5)
     .style('fill', d => d.datetime <= latestVisibleDate ? 'var(--color-accent)' : 'steelblue')
+    .style('fill-opacity', 0.7)
     .style('pointer-events', d => d.datetime <= latestVisibleDate ? 'all' : 'none')
     .transition(t)
     .attr('r', d => rScale(d.totalLines));
+    
+  // Add hover effects to all dots (both existing and new)
+  dots.merge(newDots)
+    .on('mouseenter', function (event, commit) {
+      d3.select(event.currentTarget).style('fill-opacity', 1);
+      updateTooltipContent(commit);
+      updateTooltipVisibility(true);
+      updateTooltipPosition(event);
+    })
+    .on('mousemove', updateTooltipPosition)
+    .on('mouseleave', function (event) {
+      d3.select(event.currentTarget).style('fill-opacity', 0.7);
+      updateTooltipContent({});
+      updateTooltipVisibility(false);
+    });
 }
 
 
@@ -459,3 +472,88 @@ document.addEventListener('DOMContentLoaded', async () => {
   await loadData();
   brushSelector();
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function updateTimeFilter(maxTime) {
+  filteredCommits = commits.filter(d => d.datetime <= maxTime);
+  filteredLines = data.filter(d => d.datetime <= maxTime);
+  
+  // Process files data and sort by line count
+  const files = d3.groups(filteredLines, d => d.file)
+    .map(([name, lines]) => ({ name, lines }))
+    .sort((a, b) => b.lines.length - a.lines.length);
+  
+  // Create color scale for file types with explicit domain
+  const fileTypeColors = d3.scaleOrdinal(d3.schemeTableau10)
+    .domain(d3.groups(filteredLines, d => d.type).map(d => d[0]));
+  
+  // Update x-scale domain to show only filtered commits
+  xScale.domain([d3.min(filteredCommits, d => d.datetime), maxTime]);
+  
+  // Update circles with transition
+  const dots = d3.select('.dots')
+    .selectAll('circle')
+    .data(commits, d => d.id);
+
+  // Update all circles
+  dots
+    .style('opacity', d => d.datetime <= maxTime ? 0.7 : 0)
+    .transition()
+    .duration(200)
+    .attr('cx', d => xScale(d.datetime));
+
+  // Add any missing circles
+  dots.enter()
+    .append('circle')
+    .attr('cy', d => yScale(d.hourFrac))
+    .attr('r', d => rScale(d.totalLines))
+    .style('fill', d => fileTypeColors(d.lines[0].type))
+    .style('opacity', d => d.datetime <= maxTime ? 0.7 : 0)
+    .attr('cx', d => xScale(d.datetime));
+
+  // Update x-axis with transition using class selector
+  d3.select('.x-axis')
+    .transition()
+    .duration(200)
+    .call(d3.axisBottom(xScale));
+    
+  // Update files visualization
+  d3.select('.files').selectAll('div').remove();
+  
+  const filesContainer = d3.select('.files')
+    .selectAll('div')
+    .data(files)
+    .enter()
+    .append('div');
+
+  filesContainer.append('dt')
+    .append('code')
+    .html(d => `${d.name} <small>${d.lines.length} lines</small>`);
+
+  filesContainer.append('dd')
+    .selectAll('div')
+    .data(d => d.lines)
+    .enter()
+    .append('div')
+    .attr('class', 'line')
+    .style('background', d => fileTypeColors(d.type));
+    
+  // Update stats
+  displayStats();
+}
