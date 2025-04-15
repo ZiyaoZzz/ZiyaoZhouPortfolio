@@ -6,6 +6,18 @@
         "description": "Dsc106 Final project - People Choice Awards top 5% by popular vote; Mice movements straightforward stimulation based on their activities and temperature in real dataset data."
     },
     {
+       "title": "Dragon Phoenix Acupuncture Website",
+       "year": "2025",
+       "image": "acupuncture.jpg",
+       "description": "Independently developed and deployed a fully responsive website for a real acupuncture clinic using HTML, CSS, and JavaScript; implemented mobile and desktop compatibility, interactive UI elements, navigation, and functional page transitions to deliver a polished, user-friendly experience. Configured custom domain, DNS, and server settings to successfully deploy the site live, ensuring smooth routing, fast loading, and a professional online presence."
+    },
+    {
+       "title": "UCSD XR Lab Auto-Grading Agent",
+       "year": "2025",
+       "image": "xr_lab.jpg",
+       "description": "Collaborating on the development of a GPT-4o-powered auto-grading system for architecture-focused cognitive neuroscience coursework; responsible for designing assignment-specific rubrics, implementing multimodal prompt engineering, and evaluating LLM performance on image-rich student submissions."
+    },
+    {
         "title": "Pokemon generation analysis",
         "year": "2025", 
         "image": "pokemon.jpg",
